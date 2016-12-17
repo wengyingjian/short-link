@@ -4,7 +4,6 @@
     <modules>
         <module>mini-link-api</module>
         <module>mini-link-service</module>
-        <module>mini-link-web</module>
     </modules>
 
     <parent>
