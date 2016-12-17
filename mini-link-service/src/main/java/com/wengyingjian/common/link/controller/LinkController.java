@@ -5,6 +5,8 @@ import com.wengyingjian.common.link.service.LinkService;
 import com.wengyingjian.kylin.common.enums.ResultStatus;
 import com.wengyingjian.kylin.common.model.Result;
 import com.wengyingjian.kylin.common.utils.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +18,19 @@ import java.io.IOException;
  */
 @RestController
 public class LinkController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private LinkService linkService;
 
     @RequestMapping(value = "/gen", method = RequestMethod.POST)
     public Result<String> getShortLink(@RequestParam String originalLink) {
-        Result<Link> result = linkService.genShortLink(originalLink);
-        if (result.getStatus() == ResultStatus.SUCCESS.getCode()) {
+        try {
+            Result<Link> result = linkService.genShortLink(originalLink);
             return ResultUtil.genSuccessResult(result.getData().getShortLink());
+        } catch (Exception e) {
+            logger.error("getShortLink failed for originalLink[" + originalLink + "], error msg is: ", e);
+            return ResultUtil.genCommonError("获取失败！");
         }
-        return ResultUtil.genCommonError("获取失败！");
     }
 
     @RequestMapping(value = "/{shortLink}", method = RequestMethod.GET)
