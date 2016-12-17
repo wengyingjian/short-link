@@ -23,6 +23,8 @@ public class ViewController {
     @RequestMapping("/")
     public void index(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("index...");
+        System.out.println("index...");
+
         BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("page/index.html")));
         ServletOutputStream out = response.getOutputStream();
         String line = br.readLine();

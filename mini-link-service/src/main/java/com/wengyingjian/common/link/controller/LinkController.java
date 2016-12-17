@@ -29,7 +29,7 @@ public class LinkController {
     public Result<String> getShortLink(@RequestParam String originalLink) {
         try {
             logger.info("getShortLink...");
-
+            System.out.println("getShortLink...");
             Result<Link> result = linkService.genShortLink(originalLink);
             return ResultUtil.genSuccessResult(result.getData().getShortLink());
         } catch (Exception e) {
@@ -42,6 +42,7 @@ public class LinkController {
     public void redirectOriginalLink(HttpServletResponse response,//
                                      @PathVariable() String shortLink) throws IOException {
         logger.info("redirectOriginalLink...");
+        System.out.println("redirectOriginalLink...");
 
         Result<String> result = linkService.getOriginalLink(shortLink);
         if (result.getStatus() == ResultStatus.SUCCESS.getCode()) {
