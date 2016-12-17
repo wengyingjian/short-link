@@ -44,10 +44,12 @@ public class LinkController {
         logger.info("redirectOriginalLink...");
         System.out.println("redirectOriginalLink...");
 
-        Result<String> result = linkService.getOriginalLink(shortLink);
-        if (result.getStatus() == ResultStatus.SUCCESS.getCode()) {
-            response.sendRedirect(result.getData());
-            return;
+        if (shortLink.length() == 6) {
+            Result<String> result = linkService.getOriginalLink(shortLink);
+            if (result.getStatus() == ResultStatus.SUCCESS.getCode()) {
+                response.sendRedirect(result.getData());
+                return;
+            }
         }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("page/index.html")));
