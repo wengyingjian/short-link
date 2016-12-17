@@ -10,8 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by wengyingjian on 16/12/17.
@@ -36,11 +39,20 @@ public class LinkController {
     @RequestMapping(value = "/{shortLink}", method = RequestMethod.GET)
     public void redirectOriginalLink(HttpServletResponse response,//
                                      @PathVariable() String shortLink) throws IOException {
-        String redirect = "404";
         Result<String> result = linkService.getOriginalLink(shortLink);
         if (result.getStatus() == ResultStatus.SUCCESS.getCode()) {
-            redirect = result.getData();
+            response.sendRedirect(result.getData());
+            return;
         }
-        response.sendRedirect(redirect);
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("page/index.html")));
+        ServletOutputStream out = response.getOutputStream();
+        String line = br.readLine();
+        while (line != null) {
+            out.print(line);
+            line = br.readLine();
+        }
+        out.close();
+        br.close();
     }
 }
