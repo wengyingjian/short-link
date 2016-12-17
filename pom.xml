@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>mini-link-api</module>
+        <module>mini-link-service</module>
+        <module>mini-link-web</module>
+    </modules>
+
+    <parent>
+        <groupId>com.wengyingjian.kylin</groupId>
+        <artifactId>kylin-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.wengyingjian.common</groupId>
+    <artifactId>mini-link-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <mini-link-api.version>1.0-SNAPSHOT</mini-link-api.version>
+        <autoconfig.file>antx.properties</autoconfig.file>
+        <autoconfig.path>build</autoconfig.path>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.wengyingjian.common</groupId>
+                <artifactId>mini-link-api</artifactId>
+                <version>${mini-link-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.wengyingjian.kylin</groupId>
+                <artifactId>kylin-redis</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>com.wengyingjian.kylin</groupId>
+                <artifactId>kylin-log4j2</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>hibernate-validator</artifactId>
+                        <groupId>org.hibernate</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

@@ -1,0 +1,23 @@
+Configuration:
+  Appenders:
+    Console:
+          name: console
+          PatternLayout:
+            Pattern: '%d %p %c{1.} [%t] %m%n'
+          target: SYSTEM_OUT
+  Loggers:
+#    Logger:
+#      - name: org.apache
+#        level: debug
+#        additivity: false
+#        AppenderRef:
+#          ref: console
+#      - name: com.store59
+#        level: debug
+#        additivity: false
+#        AppenderRef:
+#          ref: console
+    Root:
+      level: info
+      AppenderRef:
+        - ref: console

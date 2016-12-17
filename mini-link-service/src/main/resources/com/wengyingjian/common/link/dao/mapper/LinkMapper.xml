@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wengyingjian.common.link.dao.mapper.LinkMapper">
+    <resultMap id="linkMap" type="com.wengyingjian.common.link.module.Link">
+        <!--<id column="id" property="id"/>-->
+        <!--<result column="user_name" property="userName"/>-->
+        <!--<result column="user_type" property="userType"/>-->
+    </resultMap>
+
+    <insert id="insertSelective" parameterType="com.wengyingjian.common.link.module.Link" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        INSERT INTO tb_link (original_link) VALUES (#{originalLink})
+    </insert>
+
+    <select id="selectOriginalLinkById" parameterType="long" resultType="string">
+        SELECT original_link FROM tb_link WHERE id = #{id}
+    </select>
+
+    <update id="updateShortLinkById" parameterType="com.wengyingjian.common.link.module.Link">
+        UPDATE tb_link SET short_link = #{shortLink} WHERE id = #{id}
+    </update>
+
+</mapper>
