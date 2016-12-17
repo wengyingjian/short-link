@@ -28,6 +28,8 @@ public class LinkController {
     @RequestMapping(value = "/gen", method = RequestMethod.POST)
     public Result<String> getShortLink(@RequestParam String originalLink) {
         try {
+            logger.info("getShortLink...");
+
             Result<Link> result = linkService.genShortLink(originalLink);
             return ResultUtil.genSuccessResult(result.getData().getShortLink());
         } catch (Exception e) {
@@ -39,6 +41,8 @@ public class LinkController {
     @RequestMapping(value = "/{shortLink}", method = RequestMethod.GET)
     public void redirectOriginalLink(HttpServletResponse response,//
                                      @PathVariable() String shortLink) throws IOException {
+        logger.info("redirectOriginalLink...");
+
         Result<String> result = linkService.getOriginalLink(shortLink);
         if (result.getStatus() == ResultStatus.SUCCESS.getCode()) {
             response.sendRedirect(result.getData());
